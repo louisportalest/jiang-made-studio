@@ -91,13 +91,32 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       text-decoration: none;
     }
-    /* pixel glitch on nav logo hover */
-    .nav-logo:hover { animation: glitch 0.3s steps(2) infinite; }
-    @keyframes glitch {
-      0%  { text-shadow: 2px 0 var(--accent1), -2px 0 var(--accent2); }
-      25% { text-shadow: -2px 0 var(--accent1), 2px 0 var(--accent2); }
-      50% { text-shadow: 2px 2px var(--accent2), -2px -2px var(--accent1); }
-      75% { text-shadow: 0 0 0 transparent; }
+    /* nav logo image */
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-img {
+      height: 36px; width: auto;
+      image-rendering: pixelated;
+      animation: logoBob 3s ease-in-out infinite, logoGlow 3s ease-in-out infinite;
+      transition: transform 0.15s steps(3);
+      filter: drop-shadow(0 0 8px rgba(6,182,212,0.6));
+    }
+    .nav-logo:hover .nav-logo-img {
+      animation: logoBob 3s ease-in-out infinite, logoGlow 3s ease-in-out infinite, logoShake 0.4s steps(4) infinite;
+      filter: drop-shadow(0 0 16px rgba(6,182,212,1)) drop-shadow(0 0 32px rgba(124,58,237,0.8));
+    }
+    @keyframes logoBob {
+      0%,100% { transform: translateY(0px); }
+      50%      { transform: translateY(-4px); }
+    }
+    @keyframes logoGlow {
+      0%,100% { filter: drop-shadow(0 0 6px rgba(6,182,212,0.5)); }
+      50%      { filter: drop-shadow(0 0 14px rgba(6,182,212,0.9)) drop-shadow(0 0 28px rgba(124,58,237,0.5)); }
+    }
+    @keyframes logoShake {
+      0%  { transform: translateY(-4px) translateX(0); }
+      25% { transform: translateY(-4px) translateX(-3px); }
+      50% { transform: translateY(-4px) translateX(3px); }
+      75% { transform: translateY(-4px) translateX(-2px); }
     }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; transition: color 0.3s; }
@@ -109,6 +128,24 @@
     /* ── HERO ── */
     #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; }
     .hero-inner { max-width: 800px; }
+
+    /* hero logo */
+    .hero-logo-wrap {
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0s forwards;
+    }
+    .hero-logo-img {
+      height: 88px; width: auto;
+      image-rendering: pixelated;
+      animation: logoBob 3s ease-in-out infinite 0.8s, heroLogoGlow 4s ease-in-out infinite 0.8s;
+      filter: drop-shadow(0 0 20px rgba(6,182,212,0.7));
+    }
+    @keyframes heroLogoGlow {
+      0%,100% { filter: drop-shadow(0 0 12px rgba(6,182,212,0.6)); }
+      33%      { filter: drop-shadow(0 0 24px rgba(124,58,237,0.8)) drop-shadow(0 0 48px rgba(6,182,212,0.4)); }
+      66%      { filter: drop-shadow(0 0 20px rgba(6,182,212,0.9)) drop-shadow(0 0 40px rgba(124,58,237,0.5)); }
+    }
 
     .hero-label {
       display: inline-flex; align-items: center; gap: 10px;
@@ -505,7 +542,10 @@
 
   <!-- Nav -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">Jiang Made Studio</a>
+    <a href="#" class="nav-logo">
+      <img src="logo.png" alt="Jiang Made Studio" class="nav-logo-img" />
+      Jiang Made Studio
+    </a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#apps">Apps</a></li>
@@ -519,6 +559,9 @@
     <div class="pixel-sprites" id="pixelSprites"></div>
 
     <div class="hero-inner">
+      <div class="hero-logo-wrap">
+        <img src="logo.png" alt="Jiang Made Studio" class="hero-logo-img" />
+      </div>
       <span class="hero-label">PLAYER 1 · DIGITAL STUDIO · MALAYSIA</span>
       <h1 class="hero-title">
         <span class="line-plain">Crafting products</span>
